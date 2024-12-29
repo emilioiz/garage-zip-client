@@ -1,7 +1,7 @@
 // src/components/Header.tsx
 import { FC, useState, useEffect } from 'react';
 import { getAuth, signOut } from 'firebase/auth';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import {
   AppBar,
@@ -21,9 +21,25 @@ import { useDialogContext } from '../context/DialogContext';
 import { useAlertContext } from '../context/AlertContext';
 
 const Logo = () => {
+  const [title, setTitle] = useState('Garage Zip');
+  const location = useLocation();
+  const pathname = location.pathname;
+
+  useEffect(() => {
+    if (pathname === '/') {
+      setTitle('Dashboard');
+    } else if (pathname.startsWith('/accounts')) {
+      setTitle('Accounts');
+    } else if (pathname.startsWith('/users')) {
+      setTitle('Users');
+    } else {
+      setTitle('Garage Zip');
+    }
+  }, [pathname]);
+
   return (
     <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
-      Garage Zip
+      {title}
     </Typography>
   );
 };
@@ -112,7 +128,7 @@ const Header: React.FC = () => {
   }, [user]);
 
   return (
-    <AppBar position='static'>
+    <AppBar position='fixed'>
       {user ? (
         <AuthHeader drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} />
       ) : (
