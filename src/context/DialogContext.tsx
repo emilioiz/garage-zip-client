@@ -16,16 +16,28 @@ interface DialogContextType {
     confirmText?: string,
     cancelText?: string
   ) => void;
+
+  openDialogWithContent: (
+    content: ReactNode,
+    onConfirm: () => void,
+    confirmText?: string,
+    cancelText?: string,
+    title?: string
+  ) => void;
 }
 
 const DialogContext = createContext<DialogContextType | undefined>(undefined);
 
 export const DialogProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [open, setOpen] = useState<boolean>(false);
+
   const [message, setMessage] = useState<string>('');
   const [confirmText, setConfirmText] = useState<string>('Yes');
   const [cancelText, setCancelText] = useState<string>('No');
   const [onConfirm, setOnConfirm] = useState<() => void>(() => {});
+  const [title, setTitle] = useState<string>('Confirmation');
+
+  const [customContent, setCustomContent] = useState<ReactNode | null>(null);
 
   const openDialog = (
     newMessage: string,
@@ -37,6 +49,24 @@ export const DialogProvider: FC<{ children: ReactNode }> = ({ children }) => {
     setOnConfirm(() => newOnConfirm);
     setConfirmText(newConfirmText);
     setCancelText(newCancelText);
+    setCustomContent(null);
+    setTitle('Confirmation');
+    setOpen(true);
+  };
+
+  const openDialogWithContent = (
+    content: ReactNode,
+    newOnConfirm: () => void,
+    newConfirmText: string = 'OK',
+    newCancelText: string = 'Cancel',
+    newTitle: string = 'Choose an Option'
+  ) => {
+    setCustomContent(content);
+    setOnConfirm(() => newOnConfirm);
+    setConfirmText(newConfirmText);
+    setCancelText(newCancelText);
+    setMessage('');
+    setTitle(newTitle);
     setOpen(true);
   };
 
@@ -45,16 +75,16 @@ export const DialogProvider: FC<{ children: ReactNode }> = ({ children }) => {
   };
 
   return (
-    <DialogContext.Provider value={{ openDialog }}>
+    <DialogContext.Provider value={{ openDialog, openDialogWithContent }}>
       {children}
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Confirmation</DialogTitle>
+      <Dialog open={open} onClose={handleClose} disableRestoreFocus>
+        <DialogTitle>{title}</DialogTitle>
         <DialogContent>
-          <DialogContentText>{message}</DialogContentText>
+          {customContent ? customContent : <DialogContentText>{message}</DialogContentText>}
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color='warning' variant='text'>
-            {cancelText || 'Cancel'}
+            {cancelText}
           </Button>
           <Button
             onClick={() => {
@@ -64,7 +94,7 @@ export const DialogProvider: FC<{ children: ReactNode }> = ({ children }) => {
             color='primary'
             variant='contained'
           >
-            {confirmText || 'Confirm'}
+            {confirmText}
           </Button>
         </DialogActions>
       </Dialog>

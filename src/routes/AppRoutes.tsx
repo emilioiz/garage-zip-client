@@ -10,6 +10,8 @@ import SignIn from '../pages/SignIn';
 import Dashboard from '../pages/Dashboard';
 import Users from '../pages/Users';
 import Accounts from '../pages/Accounts';
+import Account from '../pages/Account';
+import NotFound from '../pages/NotFound';
 
 const ProtectedLayout: React.FC = () => {
   const { user } = useUser();
@@ -44,8 +46,10 @@ const AppRoutes: FC = () => {
             <Route path='/' element={<Dashboard />} />
             <Route path='/users' element={<Users />} />
             <Route path='/accounts' element={<Accounts />} />
+            <Route path='/accounts/:id' element={<Account />} />
           </Route>
           <Route path='/sign-in' element={user ? <Navigate to='/' /> : <SignIn />} />
+          <Route path='*' element={<NotFound />} />
         </Routes>
       </Layout>
     </BrowserRouter>
