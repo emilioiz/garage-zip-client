@@ -1,25 +1,24 @@
-// src/pages/Accounts/AccountForm.tsx
+// src/pages/Users/NewUserForm.tsx
 import { FC } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { AsYouType } from 'libphonenumber-js';
 
-import { Typography, TextField, Button, Divider } from '@mui/material';
+import { TextField, Button } from '@mui/material';
 
 import FullScreenDialog from '../../components/FullScreenDialog';
 
-interface AccountFormProps {
-  isCreateAccountDialogOpen: boolean;
-  setIsCreateAccountDialogOpen: (open: boolean) => void;
+interface NewUserFormProps {
+  isCreateUserDialogOpen: boolean;
+  setIsCreateUserDialogOpen: (open: boolean) => void;
 }
 
-const AccountForm: FC<AccountFormProps> = ({
-  isCreateAccountDialogOpen,
-  setIsCreateAccountDialogOpen,
+const NewUserForm: FC<NewUserFormProps> = ({
+  isCreateUserDialogOpen,
+  setIsCreateUserDialogOpen,
 }) => {
   const formik = useFormik({
     initialValues: {
-      accountName: '',
       firstName: '',
       middleName: '',
       lastName: '',
@@ -28,14 +27,13 @@ const AccountForm: FC<AccountFormProps> = ({
       displayName: '',
     },
     validationSchema: Yup.object({
-      accountName: Yup.string().required('Account Name is required'),
       firstName: Yup.string().required('First Name is required'),
       lastName: Yup.string().required('Last Name is required'),
       email: Yup.string().email('Invalid email address').required('Email is required'),
     }),
     onSubmit: (values) => {
-      console.log('Account Created:', values);
-      setIsCreateAccountDialogOpen(false);
+      console.log('User Created:', values);
+      setIsCreateUserDialogOpen(false);
     },
   });
 
@@ -48,12 +46,12 @@ const AccountForm: FC<AccountFormProps> = ({
 
   return (
     <FullScreenDialog
-      isOpen={isCreateAccountDialogOpen}
-      onClose={() => setIsCreateAccountDialogOpen(false)}
-      title='Create New Account'
+      isOpen={isCreateUserDialogOpen}
+      onClose={() => setIsCreateUserDialogOpen(false)}
+      title='Create New User'
       actions={
         <>
-          <Button onClick={() => setIsCreateAccountDialogOpen(false)} color='warning'>
+          <Button onClick={() => setIsCreateUserDialogOpen(false)} color='warning'>
             Cancel
           </Button>
           <Button type='submit' color='primary' variant='contained'>
@@ -63,18 +61,6 @@ const AccountForm: FC<AccountFormProps> = ({
       }
       onSubmit={formik.handleSubmit}
     >
-      <TextField
-        label='Account Name'
-        variant='outlined'
-        fullWidth
-        margin='normal'
-        required
-        {...formik.getFieldProps('accountName')}
-        error={formik.touched.accountName && Boolean(formik.errors.accountName)}
-        helperText={formik.touched.accountName && formik.errors.accountName}
-      />
-      <Divider sx={{ my: 2 }} />
-      <Typography variant='body2'>Primary User Details</Typography>
       <TextField
         label='First Name'
         variant='outlined'
@@ -135,4 +121,4 @@ const AccountForm: FC<AccountFormProps> = ({
   );
 };
 
-export default AccountForm;
+export default NewUserForm;

@@ -9,6 +9,7 @@ import Loading from '../components/Loading';
 import SignIn from '../pages/SignIn';
 import Dashboard from '../pages/Dashboard';
 import Users from '../pages/Users';
+import User from '../pages/User';
 import Accounts from '../pages/Accounts';
 import Account from '../pages/Account';
 import NotFound from '../pages/NotFound';
@@ -45,6 +46,7 @@ const AppRoutes: FC = () => {
           <Route element={<ProtectedLayout />}>
             <Route path='/' element={<Dashboard />} />
             <Route path='/users' element={<Users />} />
+            <Route path='/users/:id' element={<User />} />
             <Route path='/accounts' element={<Accounts />} />
             <Route path='/accounts/:id' element={<Account />} />
           </Route>

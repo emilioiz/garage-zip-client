@@ -22,7 +22,7 @@ import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 
 import CustomSpeedDial from '../../components/SpeedDial';
 import AccountForm from './AccountForm';
-import UserForm from './UserForm';
+import UsersForm from './UsersForm';
 import GarageForm from './GarageForm';
 
 const SampleAccounts = [
@@ -101,7 +101,7 @@ const Account: React.FC = () => {
   const [account, setAccount] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [isEditAccountDialogOpen, setIsEditAccountDialogOpen] = useState(false);
-  const [isEditUserDialogOpen, setIsEditUserDialogOpen] = useState(false);
+  const [isEditUsersDialogOpen, setIsEditUsersDialogOpen] = useState(false);
   const [isEditGarageDialogOpen, setIsEditGarageDialogOpen] = useState(false);
 
   useEffect(() => {
@@ -125,7 +125,7 @@ const Account: React.FC = () => {
   };
 
   const handleOpenEditUserDialog = () => {
-    setIsEditUserDialogOpen(true);
+    setIsEditUsersDialogOpen(true);
   };
 
   const handleOpenEditGarageDialog = () => {
@@ -269,9 +269,9 @@ const Account: React.FC = () => {
         setIsEditAccountDialogOpen={setIsEditAccountDialogOpen}
       />
 
-      <UserForm
-        isEditUserDialogOpen={isEditUserDialogOpen}
-        setIsEditUserDialogOpen={setIsEditUserDialogOpen}
+      <UsersForm
+        isEditUsersDialogOpen={isEditUsersDialogOpen}
+        setIsEditUsersDialogOpen={setIsEditUsersDialogOpen}
         accountId={account.id}
       />
 

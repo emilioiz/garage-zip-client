@@ -3,11 +3,7 @@ import { FC, ChangeEvent, useRef, useState } from 'react';
 
 import {
   TextField,
-  Dialog,
-  DialogContent,
-  DialogActions,
   Button,
-  DialogTitle,
   InputAdornment,
   Box,
   Typography,
@@ -33,9 +29,9 @@ import SearchIcon from '@mui/icons-material/Search';
 import { useDialogContext } from '../../context/DialogContext';
 import FullScreenDialog from '../../components/FullScreenDialog';
 
-interface UserFormProps {
-  isEditUserDialogOpen: boolean;
-  setIsEditUserDialogOpen: (open: boolean) => void;
+interface UsersFormProps {
+  isEditUsersDialogOpen: boolean;
+  setIsEditUsersDialogOpen: (open: boolean) => void;
   accountId: string;
 }
 
@@ -113,9 +109,9 @@ const UserTypeSelection: FC<UserTypeSelectionProps> = ({ defaultValue = '', onCh
   );
 };
 
-const UserForm: FC<UserFormProps> = ({
-  isEditUserDialogOpen,
-  setIsEditUserDialogOpen,
+const UsersForm: FC<UsersFormProps> = ({
+  isEditUsersDialogOpen,
+  setIsEditUsersDialogOpen,
   accountId,
 }) => {
   const { openDialog, openDialogWithContent } = useDialogContext();
@@ -201,11 +197,11 @@ const UserForm: FC<UserFormProps> = ({
 
   return (
     <FullScreenDialog
-      isOpen={isEditUserDialogOpen}
-      onClose={() => setIsEditUserDialogOpen(false)}
+      isOpen={isEditUsersDialogOpen}
+      onClose={() => setIsEditUsersDialogOpen(false)}
       title='Manage Users'
       actions={
-        <Button onClick={() => setIsEditUserDialogOpen(false)} color='primary'>
+        <Button onClick={() => setIsEditUsersDialogOpen(false)} color='primary'>
           Close
         </Button>
       }
@@ -291,4 +287,4 @@ const UserForm: FC<UserFormProps> = ({
   );
 };
 
-export default UserForm;
+export default UsersForm;
