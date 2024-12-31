@@ -3,14 +3,9 @@ import { FC } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
-import {
-  TextField,
-  Dialog,
-  DialogContent,
-  DialogActions,
-  Button,
-  DialogTitle,
-} from '@mui/material';
+import { TextField, Button } from '@mui/material';
+
+import FullScreenDialog from '../../components/FullScreenDialog';
 
 interface AccountFormProps {
   isEditAccountDialogOpen: boolean;
@@ -35,36 +30,33 @@ const AccountForm: FC<AccountFormProps> = ({
   });
 
   return (
-    <Dialog
-      fullScreen
-      open={isEditAccountDialogOpen}
+    <FullScreenDialog
+      isOpen={isEditAccountDialogOpen}
       onClose={() => setIsEditAccountDialogOpen(false)}
-      disableRestoreFocus
+      title='Edit Account'
+      actions={
+        <>
+          <Button onClick={() => setIsEditAccountDialogOpen(false)} color='warning'>
+            Cancel
+          </Button>
+          <Button type='submit' color='primary' variant='contained'>
+            Submit
+          </Button>
+        </>
+      }
+      onSubmit={formik.handleSubmit}
     >
-      <DialogTitle sx={{ pt: 4 }}>Edit Account</DialogTitle>
-      <DialogContent>
-        <form onSubmit={formik.handleSubmit}>
-          <TextField
-            label='Account Name'
-            variant='outlined'
-            fullWidth
-            margin='normal'
-            required
-            {...formik.getFieldProps('accountName')}
-            error={formik.touched.accountName && Boolean(formik.errors.accountName)}
-            helperText={formik.touched.accountName && formik.errors.accountName}
-          />
-          <DialogActions sx={{ pb: 4 }}>
-            <Button onClick={() => setIsEditAccountDialogOpen(false)} color='primary'>
-              Cancel
-            </Button>
-            <Button type='submit' color='primary' variant='contained'>
-              Edit
-            </Button>
-          </DialogActions>
-        </form>
-      </DialogContent>
-    </Dialog>
+      <TextField
+        label='Account Name'
+        variant='outlined'
+        fullWidth
+        margin='normal'
+        required
+        {...formik.getFieldProps('accountName')}
+        error={formik.touched.accountName && Boolean(formik.errors.accountName)}
+        helperText={formik.touched.accountName && formik.errors.accountName}
+      />
+    </FullScreenDialog>
   );
 };
 
