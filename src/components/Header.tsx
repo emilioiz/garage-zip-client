@@ -97,6 +97,9 @@ const AuthHeader: FC<{
           <ListItemButton onClick={() => handleNavigate('/users')}>
             <ListItemText primary='Users' />
           </ListItemButton>
+          <ListItemButton onClick={() => handleNavigate('/cars')}>
+            <ListItemText primary='Cars' />
+          </ListItemButton>
         </List>
         <Divider />
         <List>

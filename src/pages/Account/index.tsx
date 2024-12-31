@@ -1,4 +1,4 @@
-// src/pages/Account.tsx
+// src/pages/Account/index.tsx
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 

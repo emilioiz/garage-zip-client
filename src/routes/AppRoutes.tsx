@@ -8,10 +8,12 @@ import Loading from '../components/Loading';
 
 import SignIn from '../pages/SignIn';
 import Dashboard from '../pages/Dashboard';
-import Users from '../pages/Users';
-import User from '../pages/User';
 import Accounts from '../pages/Accounts';
 import Account from '../pages/Account';
+import Cars from '../pages/Cars';
+import Car from '../pages/Car';
+import Users from '../pages/Users';
+import User from '../pages/User';
 import NotFound from '../pages/NotFound';
 
 const ProtectedLayout: React.FC = () => {
@@ -45,10 +47,12 @@ const AppRoutes: FC = () => {
         <Routes>
           <Route element={<ProtectedLayout />}>
             <Route path='/' element={<Dashboard />} />
-            <Route path='/users' element={<Users />} />
-            <Route path='/users/:id' element={<User />} />
             <Route path='/accounts' element={<Accounts />} />
             <Route path='/accounts/:id' element={<Account />} />
+            <Route path='/cars' element={<Cars />} />
+            <Route path='/cars/:id' element={<Car />} />
+            <Route path='/users' element={<Users />} />
+            <Route path='/users/:id' element={<User />} />
           </Route>
           <Route path='/sign-in' element={user ? <Navigate to='/' /> : <SignIn />} />
           <Route path='*' element={<NotFound />} />

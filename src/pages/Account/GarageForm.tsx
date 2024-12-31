@@ -1,4 +1,4 @@
-// src/pages/Accounts/GarageForm.tsx
+// src/pages/Account/GarageForm.tsx
 import { FC, ChangeEvent, useState } from 'react';
 
 import {

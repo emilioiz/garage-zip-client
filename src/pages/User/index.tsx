@@ -1,4 +1,4 @@
-// src/pages/Account.tsx
+// src/pages/User/index.tsx
 import { FC, useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 

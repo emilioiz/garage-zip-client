@@ -1,4 +1,4 @@
-// src/pages/Accounts/UserForm.tsx
+// src/pages/User/UserForm.tsx
 import { FC } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
